@@ -198,11 +198,11 @@ Due to the size of the dataset, we had to subset.
   
 **After taking the average of all nine subsets' MSE, we came to these results:**   
 
-Avg. MSE for LOWESS is:  396960632219909.25   
-Avg. MSE for Boosted LOWESS is:  368504086517037.25   
-Avg. MSE for RF is:  429377062586663.3   
-Avg. MSE for XGBoost is:  451751115850667.44   
-Avg. MSE for our booster is:  387605191285508.25   
+Average MSE for LOWESS is:  396960632219909.25   
+Average MSE for Boosted LOWESS is:  368504086517037.25   
+Average MSE for RF is:  429377062586663.3   
+Average MSE for XGBoost is:  451751115850667.44   
+Average MSE for our booster is:  387605191285508.25   
 
 
 
