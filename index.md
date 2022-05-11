@@ -1,4 +1,4 @@
-# 410 Final Project
+# ML410 Final Project
 ### Anne Louise Seekford and Lisa Fukutoku
 #### DATA 410 - Advanced Applied Machine Learning - Multiple Boosting and LightGBM
 #### 05.11.22
@@ -16,7 +16,7 @@ The Major Social Media Stock Price dataset (Kanawattanachai, 2022), retrieved fr
 
 Snippet of Dataset:  
 
-<p align = 'center'><img width="470" alt="Screen Shot 2022-05-11 at 2 12 21 PM" src="https://user-images.githubusercontent.com/71660299/167917862-8c75abc7-d37c-45ab-af44-ebbaf37ac273.png">  
+<p align = 'center'><img width="470" alt="Screen Shot 2022-05-11 at 2 12 21 PM" src="https://user-images.githubusercontent.com/71660299/167917862-8c75abc7-d37c-45ab-af44-ebbaf37ac273.png">    
 
 
 
@@ -28,15 +28,15 @@ For the data preprocessing, all data with missing values were removed. Then, we 
 ## Multiple Boosting Algorithm
 
   
-<p align = 'center'><img width="365" alt="Screen Shot 2022-05-11 at 2 13 22 PM" src="https://user-images.githubusercontent.com/71660299/167918024-8d29e7dc-6386-4ac2-b80f-6f59c21046b3.png">  
+<p align = 'center'><img width="365" alt="Screen Shot 2022-05-11 at 2 13 22 PM" src="https://user-images.githubusercontent.com/71660299/167918024-8d29e7dc-6386-4ac2-b80f-6f59c21046b3.png">    
 
 
 Our multiple booster was then ran in a K-Fold Cross Validation Loop, along with other regressors.  
 
-<p align = 'center'><img width="739" alt="Screen Shot 2022-05-11 at 2 11 52 PM" src="https://user-images.githubusercontent.com/71660299/167917784-292ec95a-61fb-4d08-be3e-acbf8b708187.png">  
+<p align = 'center'><img width="739" alt="Screen Shot 2022-05-11 at 2 11 52 PM" src="https://user-images.githubusercontent.com/71660299/167917784-292ec95a-61fb-4d08-be3e-acbf8b708187.png">    
 
 
-  #### Results:  
+  #### Results:    
   
   Due to the size of the dataset, we had to subset.
   
