@@ -222,8 +222,6 @@ Leaf-wise tree growth in LightGBM:
 LightGBM is called “Light” because of its computation power and giving results faster. It takes less memory to run and is able to deal with large volumes of data having more than 10,000+ rows, especially when one needs to achieve a high accuracy of results. Due to LightGBM's extreme computational power, we were able to run the dataset complete, without subsetting like we had done to the prior algorithms.  
   
 
-Apply LightGBM algorithm on the data:
-
 ```python
 mse_lgb = []
 
