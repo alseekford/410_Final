@@ -36,7 +36,7 @@ Our multiple booster was then ran in a K-Fold Cross Validation Loop, along with 
 <p align = 'center'><img width="739" alt="Screen Shot 2022-05-11 at 2 11 52 PM" src="https://user-images.githubusercontent.com/71660299/167917784-292ec95a-61fb-4d08-be3e-acbf8b708187.png">  
 
 
-  #### Results  
+  #### Results:  
   
   Due to the size of the dataset, we had to subset.
   
@@ -67,6 +67,7 @@ LightGBM is called “Light” because of its computation power and giving resul
 <p align = 'center'> <img width="625" alt="Screen Shot 2022-05-11 at 2 27 06 PM" src="https://user-images.githubusercontent.com/71660299/167920277-9cca735c-8169-4d1d-beb7-61e599bbf32c.png">  
   
   #### Results:  
+  
 <p align = 'center'> <img width="257" alt="Screen Shot 2022-05-11 at 2 28 17 PM" src="https://user-images.githubusercontent.com/71660299/167920464-02b1aebb-76e3-487a-bb53-08e624c67009.png">  
 
   
