@@ -16,7 +16,7 @@ The Major Social Media Stock Price dataset (Kanawattanachai, 2022), retrieved fr
 
 Snippet of Dataset:  
 
-<p align = 'center'><img width="470" alt="Screen Shot 2022-05-11 at 2 12 21 PM" src="https://user-images.githubusercontent.com/71660299/167917862-8c75abc7-d37c-45ab-af44-ebbaf37ac273.png">    
+<img width="470" alt="Screen Shot 2022-05-11 at 2 12 21 PM" src="https://user-images.githubusercontent.com/71660299/167917862-8c75abc7-d37c-45ab-af44-ebbaf37ac273.png">    
 
 
 
@@ -28,23 +28,22 @@ For the data preprocessing, all data with missing values were removed. Then, we 
 ## Multiple Boosting Algorithm
 
   
-<p align = 'center'><img width="365" alt="Screen Shot 2022-05-11 at 2 13 22 PM" src="https://user-images.githubusercontent.com/71660299/167918024-8d29e7dc-6386-4ac2-b80f-6f59c21046b3.png">    
-
+<img width="365" alt="Screen Shot 2022-05-11 at 2 13 22 PM" src="https://user-images.githubusercontent.com/71660299/167918024-8d29e7dc-6386-4ac2-b80f-6f59c21046b3.png">    
 
 Our multiple booster was then ran in a K-Fold Cross Validation Loop, along with other regressors.  
 
-<p align = 'center'><img width="739" alt="Screen Shot 2022-05-11 at 2 11 52 PM" src="https://user-images.githubusercontent.com/71660299/167917784-292ec95a-61fb-4d08-be3e-acbf8b708187.png">    
+<img width="739" alt="Screen Shot 2022-05-11 at 2 11 52 PM" src="https://user-images.githubusercontent.com/71660299/167917784-292ec95a-61fb-4d08-be3e-acbf8b708187.png">    
 
 
 #### Results:    
 
 Due to the size of the dataset, we had to subset.
   
-<p align = 'center'> <img width="417" alt="Screen Shot 2022-05-11 at 2 29 08 PM" src="https://user-images.githubusercontent.com/71660299/167920646-3d9bed27-d4e3-4d28-9f72-4183b7f49e9e.png">  
+<img width="417" alt="Screen Shot 2022-05-11 at 2 29 08 PM" src="https://user-images.githubusercontent.com/71660299/167920646-3d9bed27-d4e3-4d28-9f72-4183b7f49e9e.png">  
   
 After taking the average of all nine subsets' MSE, we came to these results: 
-  
-  <p align = 'center'> <img width="302" alt="Screen Shot 2022-05-11 at 2 31 56 PM" src="https://user-images.githubusercontent.com/71660299/167921069-207b35d3-f2c7-4c75-862b-b24bed7dc29c.png">
+
+<img width="302" alt="Screen Shot 2022-05-11 at 2 31 56 PM" src="https://user-images.githubusercontent.com/71660299/167921069-207b35d3-f2c7-4c75-862b-b24bed7dc29c.png">
 
 
 
@@ -59,16 +58,16 @@ LightGBM is a gradient-boosting framework that utilizes a vertically-based tree 
 
 Leaf-wise tree growth in LightGBM:  
 
-<p align = 'center'><img width="838" alt="Screen Shot 2022-05-11 at 2 25 01 PM" src="https://user-images.githubusercontent.com/71660299/167919974-94b6d4dd-e80d-49ac-b2db-6ab9eefb719c.png">    
+<img width="838" alt="Screen Shot 2022-05-11 at 2 25 01 PM" src="https://user-images.githubusercontent.com/71660299/167919974-94b6d4dd-e80d-49ac-b2db-6ab9eefb719c.png">    
   
 LightGBM is called “Light” because of its computation power and giving results faster. It takes less memory to run and is able to deal with large volumes of data having more than 10,000+ rows, especially when one needs to achieve a high accuracy of results. Due to LightGBM's extreme computational power, we were able to run the dataset complete, without subsetting like we had done to the prior algorithms.  
   
-<p align = 'center'> <img width="625" alt="Screen Shot 2022-05-11 at 2 27 06 PM" src="https://user-images.githubusercontent.com/71660299/167920277-9cca735c-8169-4d1d-beb7-61e599bbf32c.png">    
+<img width="625" alt="Screen Shot 2022-05-11 at 2 27 06 PM" src="https://user-images.githubusercontent.com/71660299/167920277-9cca735c-8169-4d1d-beb7-61e599bbf32c.png">    
   
   
 #### Results:  
   
-<p align = 'center'> <img width="257" alt="Screen Shot 2022-05-11 at 2 28 17 PM" src="https://user-images.githubusercontent.com/71660299/167920464-02b1aebb-76e3-487a-bb53-08e624c67009.png">    
+<img width="257" alt="Screen Shot 2022-05-11 at 2 28 17 PM" src="https://user-images.githubusercontent.com/71660299/167920464-02b1aebb-76e3-487a-bb53-08e624c67009.png">    
 
   
 
