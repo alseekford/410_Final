@@ -1,6 +1,6 @@
-# Multiple Boosting and LightGBM
+# 410 Final Project
 ### Anne Louise Seekford and Lisa Fukutoku
-#### DATA 410 - Advanced Applied Machine Learning - Final Project
+#### DATA 410 - Advanced Applied Machine Learning - Multiple Boosting and LightGBM
 #### 05.11.22
 
 Created and implemented our own multiple boosting algorithm to combinations of different regressors on the "Major Social Media Stock Prices" dataset. Additional application of LightGBM algorithm. 
