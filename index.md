@@ -24,8 +24,6 @@ For the data preprocessing, all data with missing values were removed. Then, we 
 
 
 ## Multiple Boosting Algorithm
-  
-<img width="365" alt="Screen Shot 2022-05-11 at 2 13 22 PM" src="https://user-images.githubusercontent.com/71660299/167918024-8d29e7dc-6386-4ac2-b80f-6f59c21046b3.png">    
 
 Import libraries and create functions:
 
@@ -190,7 +188,6 @@ def boosting_function(X,y, subset_num=''):
   print('The Cross-validated MSE for XGBoost is : '+str(np.mean(mse_xgb)))
   #print('The Cross-validated Mean Squared Error for NN is : '+str(np.mean(mse_nn)))
   print('The Cross-validated Mean Squared Error for the Super Booster is : '+str(np.mean(mse_sboost)))
-
 ```
 
 
@@ -200,15 +197,14 @@ Due to the size of the dataset, we had to subset.
   
 <img width="417" alt="Screen Shot 2022-05-11 at 2 29 08 PM" src="https://user-images.githubusercontent.com/71660299/167920646-3d9bed27-d4e3-4d28-9f72-4183b7f49e9e.png">  
   
-After taking the average of all nine subsets' MSE, we came to these results: 
-
-<img width="302" alt="Screen Shot 2022-05-11 at 2 31 56 PM" src="https://user-images.githubusercontent.com/71660299/167921069-207b35d3-f2c7-4c75-862b-b24bed7dc29c.png">
+**After taking the average of all nine subsets' MSE, we came to these results:**   
 
 Avg. MSE for LOWESS is:  396960632219909.25   
 Avg. MSE for Boosted LOWESS is:  368504086517037.25   
 Avg. MSE for RF is:  429377062586663.3   
 Avg. MSE for XGBoost is:  451751115850667.44   
 Avg. MSE for our booster is:  387605191285508.25   
+
 
 
 ## LightGBM
@@ -226,11 +222,35 @@ Leaf-wise tree growth in LightGBM:
   
 LightGBM is called “Light” because of its computation power and giving results faster. It takes less memory to run and is able to deal with large volumes of data having more than 10,000+ rows, especially when one needs to achieve a high accuracy of results. Due to LightGBM's extreme computational power, we were able to run the dataset complete, without subsetting like we had done to the prior algorithms.  
   
-<img width="625" alt="Screen Shot 2022-05-11 at 2 27 06 PM" src="https://user-images.githubusercontent.com/71660299/167920277-9cca735c-8169-4d1d-beb7-61e599bbf32c.png">    
-  
-  
-#### Results:  
 
+Apply LightGBM algorithm on the data:
+
+```python
+mse_lgb = []
+
+for i in range(2):
+  # k-fold cross-validation for a even lower bias predictive modeling
+  kf = KFold(n_splits=10,shuffle=True,random_state=i)
+
+  # the main Cross-Validation Loop
+  for idxtrain, idxtest in kf.split(X):
+    xtrain = X[idxtrain]
+    ytrain = y[idxtrain]
+    ytest = y[idxtest]
+    xtest = X[idxtest]
+    xtrain = scale.fit_transform(xtrain)
+    xtest = scale.transform(xtest)
+    dat_train = np.concatenate([xtrain,ytrain.reshape(-1,1)],axis=1)
+    dat_test = np.concatenate([xtest,ytest.reshape(-1,1)],axis=1)
+
+    model_lgb = lgb.LGBMRegressor()
+    model_lgb.fit(xtrain,ytrain)
+    yhat_lgb = model_lgb.predict(xtest)
+    mse_lgb.append(mse(ytest,yhat_lgb))
+print('The Cross-validated Mean Squared Error for ' + subset_num +' LightGBM is : '+str(np.mean(mse_lgb)))
+```
+
+#### Results:
 The average Cross-validated MSE of these three results is: 402199053473542.5
   
 
