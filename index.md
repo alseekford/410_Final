@@ -189,9 +189,7 @@ def boosting_function(X,y, subset_num=''):
   print('The Cross-validated Mean Squared Error for the Super Booster is : '+str(np.mean(mse_sboost)))
 ```
 
-
-#### Results:    
-
+### Results:
 Due to the size of the dataset, we had to subset.
   
 <img width="417" alt="Screen Shot 2022-05-11 at 2 29 08 PM" src="https://user-images.githubusercontent.com/71660299/167920646-3d9bed27-d4e3-4d28-9f72-4183b7f49e9e.png">  
@@ -247,7 +245,7 @@ for i in range(2):
 print('The Cross-validated Mean Squared Error for ' + subset_num +' LightGBM is : '+str(np.mean(mse_lgb)))
 ```
 
-#### Results:
+### Results:
 The average Cross-validated MSE of these three results is: 402199053473542.5
   
 
