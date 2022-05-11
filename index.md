@@ -36,17 +36,16 @@ Our multiple booster was then ran in a K-Fold Cross Validation Loop, along with 
 <p align = 'center'><img width="739" alt="Screen Shot 2022-05-11 at 2 11 52 PM" src="https://user-images.githubusercontent.com/71660299/167917784-292ec95a-61fb-4d08-be3e-acbf8b708187.png">    
 
 
-  #### Results:    
-  
-  Due to the size of the dataset, we had to subset.
+#### Results:    
+
+Due to the size of the dataset, we had to subset.
   
 <p align = 'center'> <img width="417" alt="Screen Shot 2022-05-11 at 2 29 08 PM" src="https://user-images.githubusercontent.com/71660299/167920646-3d9bed27-d4e3-4d28-9f72-4183b7f49e9e.png">  
   
-  After taking the average of all nine subsets' MSE, we came to these results: 
+After taking the average of all nine subsets' MSE, we came to these results: 
   
   <p align = 'center'> <img width="302" alt="Screen Shot 2022-05-11 at 2 31 56 PM" src="https://user-images.githubusercontent.com/71660299/167921069-207b35d3-f2c7-4c75-862b-b24bed7dc29c.png">
 
-  
 
 
 ## LightGBM
@@ -60,26 +59,25 @@ LightGBM is a gradient-boosting framework that utilizes a vertically-based tree 
 
 Leaf-wise tree growth in LightGBM:  
 
-<p align = 'center'><img width="838" alt="Screen Shot 2022-05-11 at 2 25 01 PM" src="https://user-images.githubusercontent.com/71660299/167919974-94b6d4dd-e80d-49ac-b2db-6ab9eefb719c.png">  
+<p align = 'center'><img width="838" alt="Screen Shot 2022-05-11 at 2 25 01 PM" src="https://user-images.githubusercontent.com/71660299/167919974-94b6d4dd-e80d-49ac-b2db-6ab9eefb719c.png">    
   
 LightGBM is called “Light” because of its computation power and giving results faster. It takes less memory to run and is able to deal with large volumes of data having more than 10,000+ rows, especially when one needs to achieve a high accuracy of results. Due to LightGBM's extreme computational power, we were able to run the dataset complete, without subsetting like we had done to the prior algorithms.  
   
-<p align = 'center'> <img width="625" alt="Screen Shot 2022-05-11 at 2 27 06 PM" src="https://user-images.githubusercontent.com/71660299/167920277-9cca735c-8169-4d1d-beb7-61e599bbf32c.png">  
+<p align = 'center'> <img width="625" alt="Screen Shot 2022-05-11 at 2 27 06 PM" src="https://user-images.githubusercontent.com/71660299/167920277-9cca735c-8169-4d1d-beb7-61e599bbf32c.png">    
   
-  #### Results:  
   
-<p align = 'center'> <img width="257" alt="Screen Shot 2022-05-11 at 2 28 17 PM" src="https://user-images.githubusercontent.com/71660299/167920464-02b1aebb-76e3-487a-bb53-08e624c67009.png">  
+#### Results:  
+  
+<p align = 'center'> <img width="257" alt="Screen Shot 2022-05-11 at 2 28 17 PM" src="https://user-images.githubusercontent.com/71660299/167920464-02b1aebb-76e3-487a-bb53-08e624c67009.png">    
 
   
-
-
 
 ## References
 
-Guolin, et al. (n.d.). LightGBM: A highly efficient gradient boosting decision tree. Retrieved March 10, 2022, from https://papers.nips.cc/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf
-Hartman, D. (2017, February 7). How do stock prices indicate financial health? Finance. Retrieved April 15, 2022, from https://finance.zacks.com/stock-prices-indicate-financial-health-9096.html 
-Mandot, P. (2018, December 1). What is LIGHTGBM, how to implement it? how to fine tune the parameters? Medium. Retrieved March 10, 2022, from https://medium.com/@pushkarmandot/https-medium-com-pushkarmandot-what-is-lightgbm-how-to-implement-it-how-to-fine-tune-the-parameters-60347819b7fc
-Prasert Kanawattanachai. (April 2022). Major social media stock prices 2012-2022, Version 1. Retrieved April 14, 2022 from https://www.kaggle.com/datasets/prasertk/major-social-media-stock-prices-20122022.
+Guolin, et al. (n.d.). LightGBM: A highly efficient gradient boosting decision tree. Retrieved March 10, 2022, from https://papers.nips.cc/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf   
+Hartman, D. (2017, February 7). How do stock prices indicate financial health? Finance. Retrieved April 15, 2022, from https://finance.zacks.com/stock-prices-indicate-financial-health-9096.html   
+Mandot, P. (2018, December 1). What is LIGHTGBM, how to implement it? how to fine tune the parameters? Medium. Retrieved March 10, 2022, from https://medium.com/@pushkarmandot/https-medium-com-pushkarmandot-what-is-lightgbm-how-to-implement-it-how-to-fine-tune-the-parameters-60347819b7fc   
+Prasert Kanawattanachai. (April 2022). Major social media stock prices 2012-2022, Version 1. Retrieved April 14, 2022 from https://www.kaggle.com/datasets/prasertk/major-social-media-stock-prices-20122022   
  
 
 
