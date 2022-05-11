@@ -27,11 +27,110 @@ For the data preprocessing, all data with missing values were removed. Then, we 
   
 <img width="365" alt="Screen Shot 2022-05-11 at 2 13 22 PM" src="https://user-images.githubusercontent.com/71660299/167918024-8d29e7dc-6386-4ac2-b80f-6f59c21046b3.png">    
 
+Import libraries and create functions:
+
+```python
+# import libraries
+from scipy.linalg import lstsq
+from scipy.sparse.linalg import lsmr
+from scipy.interpolate import interp1d, griddata, LinearNDInterpolator, NearestNDInterpolator
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import KFold, train_test_split
+from sklearn.metrics import mean_squared_error as mse
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet
+import xgboost as xgb
+
+# Tricubic Kernel
+def Tricubic(x):
+  if len(x.shape) == 1:
+    x = x.reshape(-1,1)
+  d = np.sqrt(np.sum(x**2,axis=1))
+  return np.where(d>1,0,70/81*(1-d**3)**3)
+
+# Quartic Kernel
+def Quartic(x):
+  if len(x.shape) == 1:
+    x = x.reshape(-1,1)
+  d = np.sqrt(np.sum(x**2,axis=1))
+  return np.where(d>1,0,15/16*(1-d**2)**2)
+
+# Epanechnikov Kernel
+def Epanechnikov(x):
+  if len(x.shape) == 1:
+    x = x.reshape(-1,1)
+  d = np.sqrt(np.sum(x**2,axis=1))
+  return np.where(d>1,0,3/4*(1-d**2)) 
+  
+# Lowess regression model
+def lw_reg(X, y, xnew, kern, tau, intercept):
+    # tau is called bandwidth K((x-x[i])/(2*tau))
+    n = len(X) # the number of observations
+    yest = np.zeros(n)
+
+    if len(y.shape)==1: # here we make column vectors
+      y = y.reshape(-1,1)
+    if len(X.shape)==1:
+      X = X.reshape(-1,1)
+    if intercept:
+      X1 = np.column_stack([np.ones((len(X),1)),X])
+    else:
+      X1 = X
+
+    w = np.array([kern((X - X[i])/(2*tau)) for i in range(n)]) # here we compute n vectors of weights
+
+    # looping through all X-points
+    for i in range(n):          
+        W = np.diag(w[:,i])
+        b = np.transpose(X1).dot(W).dot(y)
+        A = np.transpose(X1).dot(W).dot(X1)
+        # A = A + 0.001*np.eye(X1.shape[1]) # if we want L2 regularization
+        # theta = linalg.solve(A, b) # A*theta = b
+        beta, res, rnk, s = lstsq(A, b)
+        yest[i] = np.dot(X1[i],beta)
+    if X.shape[1]==1:
+      f = interp1d(X.flatten(),yest,fill_value='extrapolate')
+    else:
+      f = LinearNDInterpolator(X, yest)
+    output = f(xnew)      # the output may have NaN's where the data points from xnew are outside the convex hull of X
+    if sum(np.isnan(output))>0:
+      g = NearestNDInterpolator(X,y.ravel()) 
+      # output[np.isnan(output)] = g(X[np.isnan(output)])
+      output[np.isnan(output)] = g(xnew[np.isnan(output)])
+    return output
+
+# Booster for the multiple boosting
+def booster(X, y, xnew, kern, tau, model_boosting, nboost):
+  Fx = lw_reg(X,y,X,kern,tau,True)
+  Fx_new = lw_reg(X,y,xnew,kern,tau,True)
+  new_y = y - Fx
+  output = Fx
+  output_new = Fx_new
+  for i in range(nboost):
+    model_boosting.fit(X,new_y)
+    output += model_boosting.predict(X)
+    output_new += model_boosting.predict(xnew)
+    new_y = y - output
+  return output_new
+  
+# Boosted lowess regression model
+def boosted_lwr(X, y, xnew, kern, tau, intercept):
+  # we need decision trees
+  # for training the boosted method we use X and y
+  Fx = lw_reg(X,y,X,kern,tau,intercept) # we need this for training the Decision Tree
+  # now train the Decision Tree on y_i - F(x_i)
+  new_y = y - Fx
+  # model = DecisionTreeRegressor(max_depth=2, random_state=123)
+  model = RandomForestRegressor(n_estimators=100,max_depth=2)
+  # model = model_xgb
+  model.fit(X,new_y)
+  output = model.predict(xnew) + lw_reg(X,y,xnew,kern,tau,intercept)
+  return output
+```
 
 
 Our multiple booster was then ran in a K-Fold Cross Validation Loop, along with other regressors.  
-
-<img width="739" alt="Screen Shot 2022-05-11 at 2 11 52 PM" src="https://user-images.githubusercontent.com/71660299/167917784-292ec95a-61fb-4d08-be3e-acbf8b708187.png">    
 
 ```python
 def boosting_function(X,y, subset_num=''):
@@ -105,6 +204,11 @@ After taking the average of all nine subsets' MSE, we came to these results:
 
 <img width="302" alt="Screen Shot 2022-05-11 at 2 31 56 PM" src="https://user-images.githubusercontent.com/71660299/167921069-207b35d3-f2c7-4c75-862b-b24bed7dc29c.png">
 
+Avg. MSE for LOWESS is:  396960632219909.25   
+Avg. MSE for Boosted LOWESS is:  368504086517037.25   
+Avg. MSE for RF is:  429377062586663.3   
+Avg. MSE for XGBoost is:  451751115850667.44   
+Avg. MSE for our booster is:  387605191285508.25   
 
 
 ## LightGBM
@@ -126,21 +230,20 @@ LightGBM is called “Light” because of its computation power and giving resul
   
   
 #### Results:  
-  
-<img width="257" alt="Screen Shot 2022-05-11 at 2 28 17 PM" src="https://user-images.githubusercontent.com/71660299/167920464-02b1aebb-76e3-487a-bb53-08e624c67009.png">    
 
 The average Cross-validated MSE of these three results is: 402199053473542.5
   
 
+
 ## References
 
-Guolin, et al. (n.d.). LightGBM: A highly efficient gradient boosting decision tree. Retrieved March 10, 2022, from [https://papers.nips.cc/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf]
+Guolin, et al. (n.d.). LightGBM: A highly efficient gradient boosting decision tree. Retrieved March 10, 2022, from [https://papers.nips.cc/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf](https://papers.nips.cc/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf).
 
-Hartman, D. (2017, February 7). How do stock prices indicate financial health? Finance. Retrieved April 15, 2022, from [https://finance.zacks.com/stock-prices-indicate-financial-health-9096.html]
+Hartman, D. (2017, February 7). How do stock prices indicate financial health? Finance. Retrieved April 15, 2022, from [https://finance.zacks.com/stock-prices-indicate-financial-health-9096.html](https://finance.zacks.com/stock-prices-indicate-financial-health-9096.html).
 
-Mandot, P. (2018, December 1). What is LIGHTGBM, how to implement it? how to fine tune the parameters? Medium. Retrieved March 10, 2022, from [https://medium.com/@pushkarmandot/https-medium-com-pushkarmandot-what-is-lightgbm-how-to-implement-it-how-to-fine-tune-the-parameters-60347819b7fc]
+Mandot, P. (2018, December 1). What is LIGHTGBM, how to implement it? how to fine tune the parameters? Medium. Retrieved March 10, 2022, from [https://medium.com/@pushkarmandot/https-medium-com-pushkarmandot-what-is-lightgbm-how-to-implement-it-how-to-fine-tune-the-parameters-60347819b7fc](https://medium.com/@pushkarmandot/https-medium-com-pushkarmandot-what-is-lightgbm-how-to-implement-it-how-to-fine-tune-the-parameters-60347819b7fc).
 
-Prasert Kanawattanachai. (April 2022). Major social media stock prices 2012-2022, Version 1. Retrieved April 14, 2022 from [https://www.kaggle.com/datasets/prasertk/major-social-media-stock-prices-20122022]
+Prasert Kanawattanachai. (April 2022). Major social media stock prices 2012-2022, Version 1. Retrieved April 14, 2022 from [https://www.kaggle.com/datasets/prasertk/major-social-media-stock-prices-20122022](https://www.kaggle.com/datasets/prasertk/major-social-media-stock-prices-20122022).
  
 
 
