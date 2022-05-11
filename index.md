@@ -1,4 +1,4 @@
-# ML 410  Final Project
+# ML410 Final Project
 ### Anne Louise Seekford and Lisa Fukutoku
 #### DATA 410 - Advanced Applied Machine Learning - Multiple Boosting and LightGBM
 #### 05.11.22
