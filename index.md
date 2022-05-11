@@ -36,15 +36,40 @@ Our multiple booster was then ran in a K-Fold Cross Validation Loop, along with 
 <p align = 'center'><img width="739" alt="Screen Shot 2022-05-11 at 2 11 52 PM" src="https://user-images.githubusercontent.com/71660299/167917784-292ec95a-61fb-4d08-be3e-acbf8b708187.png">  
 
 
+  #### Results  
+  
+  Due to the size of the dataset, we had to subset.
+  
+<p align = 'center'> <img width="417" alt="Screen Shot 2022-05-11 at 2 29 08 PM" src="https://user-images.githubusercontent.com/71660299/167920646-3d9bed27-d4e3-4d28-9f72-4183b7f49e9e.png">  
+  
+  After taking the average of all nine subsets' MSE, we came to these results: 
+  
+  <p align = 'center'> <img width="302" alt="Screen Shot 2022-05-11 at 2 31 56 PM" src="https://user-images.githubusercontent.com/71660299/167921069-207b35d3-f2c7-4c75-862b-b24bed7dc29c.png">
+
+  
+
 
 ## LightGBM
 
-LightGBM is a gradient-boosting framework that utilizes a vertically-based tree structure learning algorithm. Due to the vertical flow, LightGBM can significantly outperform XGBoost and other regressors in terms of both computational speed and memory consumption (Guolin et al.). With that being said however, LightGBM is sensitive to overfitting, and is recommended to be used on larger datasets. There is a variety of parameters to include to improve results, a few examples including (Mandot, 2018):
+LightGBM is a gradient-boosting framework that utilizes a vertically-based tree structure learning algorithm. Based on decision tree algorithm, it is used for ranking, regression, classification, and many other machine learning tasks. Due to the vertical flow, LightGBM can significantly outperform XGBoost and other regressors in terms of both computational speed and memory consumption (Guolin et al.). Therefore, when growing on the same leaf in Light GBM, the leaf-wise algorithm can reduce more loss than the level-wise algorithm and hence results in much better accuracy which can rarely be achieved by any of the existing boosting algorithms. With that being said however, LightGBM is sensitive to overfitting, and is recommended to be used on larger datasets. There is a variety of parameters to include to improve results, a few examples including (Mandot, 2018):
   - learning_rate: determines the impact each tree has on the final outcome
   - num_leaves: number of leaves in a full tree (31 is default)
   - num_boost_round: number of boosting iterations
   - boosting: defines the type of algorithm running (can choose traditional Gradient Boosting Decision Tree (gbdt), Random Forest (rf), etc.)
+  
 
+Leaf-wise tree growth in LightGBM:  
+
+<p align = 'center'><img width="838" alt="Screen Shot 2022-05-11 at 2 25 01 PM" src="https://user-images.githubusercontent.com/71660299/167919974-94b6d4dd-e80d-49ac-b2db-6ab9eefb719c.png">  
+  
+LightGBM is called “Light” because of its computation power and giving results faster. It takes less memory to run and is able to deal with large volumes of data having more than 10,000+ rows, especially when one needs to achieve a high accuracy of results. Due to LightGBM's extreme computational power, we were able to run the dataset complete, without subsetting like we had done to the prior algorithms.  
+  
+<p align = 'center'> <img width="625" alt="Screen Shot 2022-05-11 at 2 27 06 PM" src="https://user-images.githubusercontent.com/71660299/167920277-9cca735c-8169-4d1d-beb7-61e599bbf32c.png">  
+  
+  #### Results:  
+<p align = 'center'> <img width="257" alt="Screen Shot 2022-05-11 at 2 28 17 PM" src="https://user-images.githubusercontent.com/71660299/167920464-02b1aebb-76e3-487a-bb53-08e624c67009.png">  
+
+  
 
 
 
