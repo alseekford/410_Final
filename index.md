@@ -175,7 +175,7 @@ def boosting_function(X,y, subset_num=''):
       yhat_xgb = model_xgb.predict(xtest)
       mse_xgb.append(mse(ytest,yhat_xgb))
 
-      # SUPER BOOSTER
+      # SUPER BOOSTER (Multiple boosting function that we created)
       super_yhat = booster(xtrain, ytrain, xtest, Tricubic, 1, model_boosting, 1)
       mse_sboost.append(mse(ytest, super_yhat))
 
@@ -185,8 +185,8 @@ def boosting_function(X,y, subset_num=''):
   print('The Cross-validated MSE for Boosted Locally Weighted Regression is : '+str(np.mean(mse_blwr)))
   print('The Cross-validated MSE for Random Forest is : '+str(np.mean(mse_rf)))
   print('The Cross-validated MSE for XGBoost is : '+str(np.mean(mse_xgb)))
-  #print('The Cross-validated Mean Squared Error for NN is : '+str(np.mean(mse_nn)))
-  print('The Cross-validated Mean Squared Error for the Super Booster is : '+str(np.mean(mse_sboost)))
+  # print('The Cross-validated MSE for NN is : '+str(np.mean(mse_nn)))
+  print('The Cross-validated Mean Squared Error for our own multiple booster is : '+str(np.mean(mse_sboost)))
 ```
 
 ### Results:
@@ -196,11 +196,11 @@ Due to the size of the dataset, we had to subset.
   
 **After taking the average of all nine subsets' MSE, we came to these results:**   
 
-Average MSE for LOWESS is:  396960632219909.25   
-Average MSE for Boosted LOWESS is:  368504086517037.25   
-Average MSE for RF is:  429377062586663.3   
-Average MSE for XGBoost is:  451751115850667.44   
-Average MSE for our booster is:  387605191285508.25   
+Average Cross-validated MSE for LOWESS is:  396960632219909.25   
+Average Cross-validated MSE for Boosted LOWESS is:  368504086517037.25   
+Average Cross-validated MSE for RF is:  429377062586663.3   
+Average Cross-validated MSE for XGBoost is:  451751115850667.44   
+Average Cross-validated MSE for our own multiple booster is:  387605191285508.25   
 
 
 
@@ -242,12 +242,17 @@ for i in range(2):
     model_lgb.fit(xtrain,ytrain)
     yhat_lgb = model_lgb.predict(xtest)
     mse_lgb.append(mse(ytest,yhat_lgb))
-print('The Cross-validated Mean Squared Error for ' + subset_num +' LightGBM is : '+str(np.mean(mse_lgb)))
+print('The Cross-validated MSE for ' + subset_num +' LightGBM is : '+str(np.mean(mse_lgb)))
 ```
 
 ### Results:
-The average Cross-validated MSE of these three results is: 402199053473542.5
+Average Cross-validated MSE for LightGBM is: 402199053473542.5
   
+
+## Conclusion
+
+Since we aim to minimize the crossvalidated mean square error (MSE) of the model for the better results, we conclude that Boosted LOWESS achieved the best result in this analysis. The order of the model from the best to worst is Boosted LOWESS, our own multiple booster, LOWESS, LightGBM, Random Forest, and Extreme Gradient Boosting (XGBoost). We expected for lightGBM to demonstrate the best MSE result in this project, but lightGBM did not achieve a superior outcome.
+
 
 
 ## References
