@@ -5,6 +5,7 @@ Created and implemented our own multiple boosting algorithm to combinations of d
 
 DS 410: Advanced Applied Machine Learning  
 Lisa Fukutoku, Anne Louise Seekford
+Spring 2022 
 
 
 Please visit our GitHub Page, or `index.md` file.
